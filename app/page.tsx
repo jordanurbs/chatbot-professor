@@ -4,8 +4,8 @@ import Image from 'next/image'
 export default function Page() {
   return (
     <div className="relative h-screen w-full overflow-hidden">
-      {/* Position the widget in a fixed, absolute position */}
-      <div className="absolute left-0 top-0 z-10 opacity-0">
+      {/* Position the widget in a fixed position that doesn't overlap with the chat */}
+      <div className="absolute right-4 bottom-20 z-20">
         {/* @ts-ignore - Custom element from ElevenLabs */}
         <elevenlabs-convai agent-id="vTzrPDdFGrJXps6UDXoA"></elevenlabs-convai>
       </div>
