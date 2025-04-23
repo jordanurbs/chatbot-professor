@@ -1,6 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
+import { useEffect } from 'react'
 
 import { useChat } from "ai/react"
 
@@ -26,6 +27,17 @@ export function ChatForm({ className, ...props }: React.ComponentProps<"form">) 
       handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>)
     }
   }
+
+  useEffect(() => {
+    const script = document.createElement('script')
+    script.src = "https://elevenlabs.io/convai-widget/index.js"
+    script.async = true
+    document.body.appendChild(script)
+
+    return () => {
+      document.body.removeChild(script)
+    }
+  }, [])
 
   const header = (
     <header className="m-auto flex max-w-96 flex-col gap-5 text-center">

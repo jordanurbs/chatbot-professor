@@ -27,10 +27,6 @@ export default function Layout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body className={cn("flex min-h-svh flex-col antialiased", inter.className)}>
         <TooltipProvider delayDuration={0}>{children}</TooltipProvider>
-        <Script
-          src="https://elevenlabs.io/convai-widget/index.js"
-          strategy="lazyOnload"
-        />
       </body>
     </html>
   )
