@@ -1,7 +1,6 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { useEffect } from 'react'
 
 import { useChat } from "ai/react"
 
@@ -28,17 +27,6 @@ export function ChatForm({ className, ...props }: React.ComponentProps<"form">) 
     }
   }
 
-  useEffect(() => {
-    const script = document.createElement('script')
-    script.src = "https://elevenlabs.io/convai-widget/index.js"
-    script.async = true
-    document.body.appendChild(script)
-
-    return () => {
-      document.body.removeChild(script)
-    }
-  }, [])
-
   const header = (
     <header className="m-auto flex max-w-96 flex-col gap-5 text-center">
       <img src="/jimmyai.png" alt="Professor Jimmy AI" className="w-30 h-30 mx-auto"/>
@@ -50,7 +38,7 @@ export function ChatForm({ className, ...props }: React.ComponentProps<"form">) 
   )
 
   const messageList = (
-    <div className="my-4 flex h-fit min-h-full flex-col gap-4">
+    <div className="my-4 flex h-fit flex-col gap-4">
       {messages.map((message, index) => (
         <div
           key={index}
@@ -66,32 +54,34 @@ export function ChatForm({ className, ...props }: React.ComponentProps<"form">) 
   return (
     <main
       className={cn(
-        "ring-none mx-auto flex h-svh max-h-svh w-full max-w-[35rem] flex-col items-stretch border-none",
+        "ring-none mx-auto flex h-full w-full max-w-[35rem] flex-col items-stretch border-none overflow-hidden",
         className,
       )}
       {...props}
     >
       <div className="flex-1 content-center overflow-y-auto px-6">{messages.length ? messageList : header}</div>
-      <form
-        onSubmit={handleSubmit}
-        className="border-input bg-background focus-within:ring-ring/10 relative mx-6 mb-6 flex items-center rounded-[16px] border px-3 py-1.5 pr-8 text-sm focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-0"
-      >
-        <AutoResizeTextarea
-          onKeyDown={handleKeyDown}
-          onChange={(v) => setInput(v)}
-          value={input}
-          placeholder="Enter a message"
-          className="placeholder:text-muted-foreground flex-1 bg-transparent focus:outline-none"
-        />
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button variant="ghost" size="sm" className="absolute bottom-1 right-1 size-6 rounded-full">
-              <ArrowUpIcon size={16} />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent sideOffset={12}>Submit</TooltipContent>
-        </Tooltip>
-      </form>
+      <div className="w-full sticky bottom-0 bg-background">
+        <form
+          onSubmit={handleSubmit}
+          className="border-input bg-background focus-within:ring-ring/10 relative mx-6 mb-6 flex items-center rounded-[16px] border px-3 py-1.5 pr-8 text-sm focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-0"
+        >
+          <AutoResizeTextarea
+            onKeyDown={handleKeyDown}
+            onChange={(v) => setInput(v)}
+            value={input}
+            placeholder="Enter a message"
+            className="placeholder:text-muted-foreground flex-1 bg-transparent focus:outline-none"
+          />
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="sm" className="absolute bottom-1 right-1 size-6 rounded-full">
+                <ArrowUpIcon size={16} />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent sideOffset={12}>Submit</TooltipContent>
+          </Tooltip>
+        </form>
+      </div>
     </main>
   )
 }

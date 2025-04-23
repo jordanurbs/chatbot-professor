@@ -3,9 +3,15 @@ import Image from 'next/image'
 
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <elevenlabs-convai agent-id="vTzrPDdFGrJXps6UDXoA"></elevenlabs-convai>
-      <ChatForm />
-    </main>
+    <div className="relative h-screen w-full overflow-hidden">
+      {/* Position the widget in a fixed, absolute position */}
+      <div className="absolute left-0 top-0 z-10 opacity-0">
+        {/* @ts-ignore - Custom element from ElevenLabs */}
+        <elevenlabs-convai agent-id="vTzrPDdFGrJXps6UDXoA"></elevenlabs-convai>
+      </div>
+      
+      {/* ChatForm takes up the full viewport */}
+      <ChatForm className="h-full" />
+    </div>
   )
 }
